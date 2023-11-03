@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block 'content' %}
+
+    <form hx-get="{% url 'index' %}" hx-target="body">
+
+        {{ form.as_p }}
+        
+        {% comment %} {{ form.name__icontains.label_tag }}
+        {% render_field form.name__icontains type="text" %}
+
+
+        {% render_field form.genre type="checkbox" %}{% endcomment %}
+        
+
+        <br>
+        <input type="submit" value="Submit" class="btn btn-primary">
+
+    </form>
+
+    <hr>
+
+    <h1>Book List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for book in books %}
+
+                <tr>
+                    <td>{{ book.name }}</td>
+                    <td>{{ book.author.name }}</td>
+                    <td>{{ book.get_genre_display }}</td>
+                    <td>{{ book.price }}</td>
+                </tr>
+
+            {% endfor %}
+        </tbody>
+    </table>
+
+        
+
+{% endblock %}
